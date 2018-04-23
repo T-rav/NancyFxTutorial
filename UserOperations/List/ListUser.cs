@@ -29,7 +29,7 @@ namespace UserOperations.List
 
         private bool UserNotFound(User user)
         {
-            return user == UserTypes.NotFound
+            return user == UserTypes.NotFound;
         }
         
     }
