@@ -17,14 +17,19 @@ namespace UserOperations.List
             Get["/api/users/{Id}"] = parameters =>
             {
                 var id = parameters.Id;
-                User result = _userRepository.Get(id);
-                if (result == null)
+                User user = _userRepository.Get(id);
+                if (UserNotFound(user))
                 {
                     return HttpStatusCode.NotFound;
                 }
 
-                return Response.AsJson(result);
+                return Response.AsJson(user);
             };
+        }
+
+        private bool UserNotFound(User user)
+        {
+            return user == UserTypes.NotFound
         }
         
     }
