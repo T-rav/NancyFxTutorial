@@ -5,19 +5,12 @@ namespace UserOperations.List
 {
     public class ListUser : NancyModule
     {
-        private readonly IUserRepository _userRepository;
-
-        private ListUser(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
-
-        public ListUser() : this(new UserRepository())
+        public ListUser(IUserRepository userRepository)
         {
             Get["/api/users/{Id}"] = parameters =>
             {
                 var id = parameters.Id;
-                User user = _userRepository.Get(id);
+                User user = userRepository.Get(id);
                 if (UserNotFound(user))
                 {
                     return HttpStatusCode.NotFound;
@@ -31,6 +24,5 @@ namespace UserOperations.List
         {
             return user == UserTypes.NotFound;
         }
-        
     }
 }

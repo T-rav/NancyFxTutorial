@@ -6,19 +6,13 @@ namespace UserOperations.Add
 {
     public class AddUser : NancyModule
     {
-        private readonly IUserRepository _userRepository;
 
-        private AddUser(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
-
-        public AddUser() : this(new UserRepository())
+        public AddUser(IUserRepository userRepository)
         {
             Post["/api/users"] = parameters =>
             {
                 var input = this.Bind<User>();
-                var id = _userRepository.Save(input);
+                var id = userRepository.Save(input);
 
                 var result = new { Id = id };
 
